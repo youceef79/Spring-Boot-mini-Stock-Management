@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8" />
+<!-- Site Metas -->
+<title>Ajouter sortie</title>
+<!-- Bootstrap CSS -->
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+		<form th:action="@{Exporter}" method="post" style="width:50%;margin-left: 60px;">
+		      <input type="hidden" name="cat" th:value="${catCh.getNom()}"/>
+            <div class="breadcrumb" style="width:70%;">
+              <label class="breadcrumb-item" style="color:#000">Categorie</label>
+               <label style="margin-left: 50%;" th:text="${catCh.getNom()}"> </label>  
+             </div>
+             <div class="breadcrumb" style="width:70%;">
+              <label class="breadcrumb-item" style="color:#000">Produits</label>
+              <label style="margin-left: 40%;">
+               <select name="prod" style="background: gray;color: #fff" class="form-control"> 
+               <option th:each="p:${listProds}" th:text="${p.getDesignation()}"/></select>
+               </label>
+             </div>
+             
+             <div class="breadcrumb" style="width:70%;">
+              <label class="breadcrumb-item" style="color:#000">Clients</label>
+              <label style="margin-left: 40%;">
+               <select name="client" style="background: gray;color: #fff" class="form-control"> 
+               <option th:each="c:${listClients}" th:text="${c.getNom()}"/> </select>
+               </label>
+             </div>
+               <div class="row">
+                <div class="col-xs-6">
+               <a th:href="@{FormSortieCateg}"> <button type="button" class="btn btn-primary">< Retour</button> </a> </div>
+	        <div class="col-xs-6">		            
+		       <button style="margin-left: 30%" type="submit" class="btn btn-primary">Continuer ></button>
+                 </div>
+                </div>
+	        		
+       </form>
+       					
+		</div>
+
+	</section>
+      
+</body>
+</html>
+

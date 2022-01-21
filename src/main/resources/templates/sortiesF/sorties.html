@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8"/>
+<!-- Site Metas -->
+<title layout:fragment="head"> Sorties </title>
+<!-- Colors CSS -->
+</head>
+<body>
+    <section layout:fragment="content">
+       <form th:action="@{exports}" method="post">
+         <input type="hidden" name="catCh" th:value="${catCh.getNom()}" />
+            <div class="breadcrumb row" style="width: 90%;margin-left: 2px">
+            <div class="col-xs-4">
+              <label class="breadcrumb-item" style="color:#000">Categories</label>
+              </div>
+              <div class="col-xs-4">
+              <select class="form-control" name="cat" style="background: gray;color: #fff;" > 
+              <option th:each="c:${categories}" th:selected="${catCh.getId()==c.getId()?'selected':null}" th:text="${c.getNom()}"/> </select>
+              </div>
+             <div class="col-xs-4">
+             <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> chercher</button>
+             </div>
+            </div>
+            <div class="breadcrumb row" style="width: 90%;margin-left: 2px">
+              <div class="col-xs-6">
+              <label class="breadcrumb-item" style="margin-left: 0;color:#000;">Listes Sorties</label>
+             </div>
+             <div class="col-xs-6">
+             <label><a th:href="@{FormSortieCateg}"> <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" ></i> Ajouter une sortie</button></a></label>
+              </div>
+            </div>
+          
+       </form>
+            <div th:if="${listsortis}" class="tabContainer">
+            <div th:if="${listEmpty!=true}">
+				<table class="table" style="background:#E9ECEF;">
+					<thead>
+						<tr>
+							<td style="color:gold">Thumbnail</td>
+							<td style="color:gold">Produit</td>
+							<td style="color:gold">Client</td>
+							<td style="color:gold">Date</td>
+							<td style="color:gold">Quantités exportées</td>
+							<td style="color:gold">Prix</td>
+						</tr>
+					</thead>
+					<tbody class="text-center">
+					 <tr th:each="s:${listsortis}">
+							<td><img th:src="@{${s.getProduit().getImagePath()}}" width="50" height="50" alt="image" /></td>
+							<td th:text="${s.getProduit().getDesignation()}"></td>
+							<td th:text="${s.getClient().getNom()}"></td>
+							<td th:text="${s.getDate().toGMTString()}"></td>
+							<td th:text="${s.getQuantiteEx()}"></td>
+							<td th:text="${s.getPrix()}+' MAD'"></td>
+							<!-- 
+							<td><a th:href="@{deleteProd(id=${p.getId()})}">
+									<button class="button btn-danger">DELETE</button>
+							</a>
+							<a th:href="@{FormEditProd(id=${p.getId()})}">
+									<button class="button btn-success">EDIT</button>
+							</a>
+							</td> -->
+						</tr>
+					</tbody>
+					
+				</table>
+		  <div style="display : flex;justify-content:space-around;">
+		    <div th:if="${page}>1">
+            <a class="hi-prev" style="position:absolute;text-decoration : none;" th:href="@{exports(slide='prev',page=${page}, cat=${catCh.getNom()})}"></a>
+            </div>
+            <div th:if="${page}<${pageMax}">
+             <a class="hi-next" style="position:absolute;text-decoration : none;" th:href="@{exports(slide='next',page=${page}, cat=${catCh.getNom()})}"></a>    
+            </div>
+            </div>
+			</div>
+			</div>
+		</section>
+
+</body>
+</html>
+

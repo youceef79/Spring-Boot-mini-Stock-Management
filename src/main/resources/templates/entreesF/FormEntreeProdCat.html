@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8" />
+<!-- Site Metas -->
+<title>Ajouter entree</title>
+<!-- Bootstrap CSS -->
+
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+		<form th:action="@{importer}" method="post" style="width:50%;margin-left: 60px;">
+		      <input type="hidden" name="cat" th:value="${catCh.getNom()}"/>
+            <div class="breadcrumb" style="width:70%;">
+              <label class="breadcrumb-item" style="color:#000">Categorie</label>
+              <div style="margin-left: 40%;">
+                <b th:text="${catCh.getNom()}"></b>  
+               </div>
+             </div>
+             <div class="breadcrumb" style="width:70%;">
+              <label class="breadcrumb-item" style="color:#000">Produits</label>
+              <label style="margin-left: 40%;">
+               <select name="prod" style="background: gray;color: #fff" class="form-control"> 
+               <option th:each="p:${listProds}" th:text="${p.getDesignation()}"/></select>
+               </label>
+             </div>
+             <div class="row">
+          <div class="col-xs-6">
+               <a th:href="@{FormEntreeCateg}"> <button type="button" class="btn btn-primary">Retour</button> </a></div>
+          <div class="col-xs-6">		             
+		       <button style="margin-left: 50%" type="submit" class="btn btn-primary">Continuer</button> </div>
+                  </div>
+	        		
+       </form>
+        	
+		</div>
+
+	</section>
+      
+</body>
+</html>
+

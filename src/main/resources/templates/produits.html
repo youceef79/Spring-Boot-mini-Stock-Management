@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8"/>
+<!-- Site Metas -->
+<title layout:fragment="head">Gestion Produits</title>
+<!-- Colors CSS -->
+</head>
+<body>
+    <section layout:fragment="content">
+     <div class="box0" style="width: 80%;">
+       <form th:action="${prods}" method="post" style="display: flex;">
+             <input type="hidden" name="catCh" th:value="${catCh.getNom()}"/> 
+             <div class="box0_1 breadcrumb" style="width: 100%;">
+              <label class="breadcrumb-item" style="color:#000;" >Categories</label>
+              <div class="selectButt">
+             <select class="form-control" name="cat" style="background: gray;color: #fff;" > 
+            <option th:each="c:${categories}" th:selected="${catCh.getId()==c.getId()?'selected':null}" th:text="${c.getNom()}"/> </select>
+               <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> chercher</button>
+                </div>
+            </div>
+       </form>
+          <div class="box0_2 breadcrumb divAj" th:if="${listProds}">
+              <label class="breadcrumb-item" style="color:#000;">Listes Produits</label>
+              <a th:href="@{FormAjoutProd}"><button type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Ajouter Produit</button></a>
+           </div>
+       </div>
+            <div th:if="${listProds}" class="tabContainer">
+				<table class="table" style="background:#E9ECEF;">
+					<thead class="text-center">
+						<tr>
+							<td>Thumbnail</td>
+							<td>Désignation</td>
+							<td>Prix</td>
+							<td>Quantité</td>
+							<td>Actions</td>
+						</tr>
+					</thead>
+					<tbody class="text-center">
+					 <tr th:each="p:${listProds}">
+							<td><img th:src="@{${p.getImagePath()}}" width="50" height="50" alt="image" /></td>
+							<td class="text-center" th:text="${p.getDesignation()}"></td>
+							<td class="text-center" th:text="${p.getPrix_achat_Ht()}"></td>
+							<td class="text-center" th:text="${p.getQuantite()}"></td>
+							<td class="text-center"><a th:href="@{deleteProd(id=${p.getId()})}">
+							<button class="button btn-danger"><i class="fa fa-times-circle"></i> DELETE</button>
+							</a>
+							<a th:href="@{FormEditProd(id=${p.getId()})}" class="ml-3">
+						<button class="button btn-danger"><i class="fa fa-edit"></i> EDIT</button>
+							</a>
+							</td>
+						</tr>
+					</tbody>
+					
+				</table>
+			<div style="display : flex;justify-content:space-around;">
+			 <div>
+             <a  class="hi-prev" th:if="${page}>1"  style="position:absolute;text-decoration : none;" 
+             th:href="@{prods(slide='prev',page=${page}, cat=${catCh.getNom()} ,catCh=${catCh.getNom()})}"></a> </div>
+             <div> <a  class="hi-next"  th:if="${page}<${pageMax}" style="position:absolute;text-decoration : none;" 
+             th:href="@{prods(slide='next',page=${page} ,cat=${catCh.getNom()} ,catCh=${catCh.getNom()})}"></a> </div>
+            </div>
+			</div>
+		</section>
+
+</body>
+</html>
+

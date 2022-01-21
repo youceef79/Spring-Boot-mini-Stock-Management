@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+ <meta charset="utf-8" />
+ <link rel="stylesheet" href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="../static/css/bootstrap.css"
+	th:href="@{/css/bootstrap.css}">
+	<link rel="stylesheet" href="../static/css/font-awesome.css"
+	th:href="@{/css/font-awesome.css}">
+ <!-- Site CSS -->
+ <link rel="stylesheet" href="style1.css" th:href="@{/css/style1.css}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+  <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+<title layout:fragment="head"></title>
+ </head>
+ <body style="background-size: cover;background-repeat:no-repeat;max-height:100vh;max-width:100%;background-image: url('/uploads/building/back_gr.jpg');">
+   <div id="my-modal" class="modalg">
+        <div class="modal-contentg">
+      <div class="modal-bodyg">
+       <h5><p> voulez-vouz vraiment continuer ?</p></h5>
+      </div>
+      <div class="modal-footerg">
+      <div style="margin-left: 3em;">
+        <a class="ok">
+<button onclick="okButton()" id="ok" class="btn btn-success"><i class="fas fa-check-circle"></i> OK</button>
+		</a>
+      <a class="cancel" style="margin-left: 20em;">
+ <button onclick="cancelButton()" id="cancel" class="btn btn-danger"><i class="fas fa-times-circle"></i> CANCEL</button>
+	  </a>
+			</div>				
+      </div>
+    </div>
+    </div>
+  <nav class="navbar navbar-expand-lg flex" style="height: 20px;background: #3E2157 ; position: relative;"> 
+  	 <a class="col-lg-4 col-md-4 col-sm-4"  href="/prods">  <img class="logo" src="/uploads/stock.png"/> </a>
+
+  	 <div class="userNav navbar-collapse">
+  	 <div class="dropdown mr-4" id="dropdown">
+  	   <i class="fa fa-user"></i>
+  	  <span> Bonjour </span> <span sec:authorize="hasRole('ADMIN')" class="bold"> Admin </span> <span class="" sec:authentication="name"> Bob </span>
+  	  <div class="content" id="content">
+	    
+	    <a href="/user/Infos" id="infos">Information</a>
+
+  	  </div>
+  	  </div>
+     <form class="form-inline" style="position: relative;" method="post" th:action="@{/logout}">
+               <div sec:authorize="isAuthenticated()"><button  class="btn btn-outline-danger my-2 my-sm-0 btn-lg" type="submit"><i class="fa fa-sign-out-alt"></i>Logout</button> </div>
+       <div sec:authorize="isAnonymous()"> <a href="/login"><button class="btn btn-outline-info my-2 my-sm-0 btn-lg" type="button"><i class="fas fa-sign-in-alt"></i>Login</button> </a>   </div>
+     </form>
+</div>
+ </nav>
+	<div id="home" style="position: relative;">
+		<div class="row">
+
+			<div class="col-sm-12 col-md-3 col-xs-12"
+				style="height: 100%;">
+				<div class="box" style="position: relative;">
+				 <div>
+					<ul id="ulIt">
+						
+						<a href="/prods" style="text-decoration: none;"> <li class="listDef">
+						<img class="ic mr-5" src="https://img.icons8.com/dusk/64/000000/product.png"/>Produits</li> </a>
+						
+						<a href="/clients" style="text-decoration: none;"> <li class="listDef">
+						<img class="ic mr-5" src="https://img.icons8.com/dusk/64/000000/client-company--v1.png"/>Clients</li> </a>
+						
+						<a href="/frnss" style="text-decoration: none;"><li class="listDef">
+						<img class="ic mr-5" src="https://img.icons8.com/color/48/000000/supplier.png"/>Fournisseurs</li></a>
+						
+						<a  sec:authorize="hasRole('ADMIN')" href="/imports" style="text-decoration: none;"><li class="listDef">
+						<img class="ic mr-5" src="https://img.icons8.com/dusk/64/000000/database-import.png"/>Imports</li></a>
+						
+						<a href="/exports" sec:authorize="hasRole('ADMIN')"  style="text-decoration: none;"><li class="listDef">
+						<img class="ic mr-5" src="https://img.icons8.com/dusk/64/000000/database-export.png"/>Exports</li></a>
+						
+						
+					</ul> </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+            const ul = document.getElementById('ulIt');       
+            const inf = document.getElementById('infos');
+            
+            inf.addEventListener("click", function(ev){ 
+            	sessionStorage.setItem("selected" , "inf"); 
+              });
+           
+            ul.addEventListener("click", function(ev){ 
+            	let all = this.querySelectorAll('li');
+            	//ev.target.className = ev.target.className.replace('listDef', ' menuSelected');
+            	if( ev.target.tagName == "LI"){
+            	
+            		getIndex(ev.target , all);
+              
+            	}		 
+               
+            	if( ev.target.tagName == "SPAN"){
+            		
+            	   let li =  ev.target.parentNode;
+            	   getIndex(li , all);         			
+             }
+             	
+            	
+    } , false);
+
+    function getIndex(li , all){
+    	 
+    	  for(let i=0 ; i<5 ; i++){
+     			if(all[i] == li)
+     			sessionStorage.setItem("selected" , i); 
+     				 
+     		}  
+      }     
+      
+      function updateForLi(li , all){
+    	   if(li){
+             li.className = li.className.replace('listDef', 'menuSelected');
+             li.pointerEvents = 'auto';
+             li.children[0].className = li.children[0].className.replace('spanDef', 'spanSelected');
+    	   }
+       		 for(let i=0 ; i<5 ; i++){
+       			if(all[i] != li){
+       				if(all[i]){
+       				all[i].className = li.className.replace('menuSelected', 'listDef');
+       		        all[i].classList.add('hover');   
+       		        all[i].children[0].className.replace('spanSelected', 'spanDef');}
+                   	} else { sessionStorage.setItem("selected" , i); }
+       		
+       	    }
+         }
+      
+      
+      if ( sessionStorage.getItem("selected") != "inf" ){
+      if( sessionStorage.getItem("selected") ) {
+      	var lis = ul.querySelectorAll('li');
+      	for(let i=0 ; i<5 ; i++){
+   			if(i == sessionStorage.getItem("selected") )
+   				updateForLi(lis[i] , lis);
+   				}
+       } else { 
+    	   updateForLi(lis[0] , lis);
+    	   }
+      }
+      /*
+      var drp = document.getElementById('dropdown');
+      var con = document.getElementById('content');
+      drp.addEventListener("click", function(e){
+    	  //let con = this.querySelector("div.content");
+    	  let down = this.querySelector("span#down");
+    	  if(con.style.display == "block" ){
+    	  con.style.display = "none"; down.innerHTML=">";
+    	  this.className = this.className.replace('downhover', '');
+    	  }
+    	  else{
+    	  con.style.display = "block"; down.innerHTML="<"; this.className += ' downhover';  }
+      }, con);*/
+      
+            </script>
+			<div class="col-md-9" style="display: flex;">
+			  <section layout:fragment="content" style="margin-left: 60px;">
+			  </section>			    
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

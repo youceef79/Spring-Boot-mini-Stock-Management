@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8" />
+<!-- Site Metas -->
+<title>Ajouter sortie</title>
+
+</head>
+<body>
+	<section layout:fragment="content">
+	    <div class="container">
+			 <form th:action="@{FormSortieProductsOfCat}" method="post" style="width:50%;margin-left: 60px;">
+            <div class="breadcrumb" style="width:70%;">
+              <label class="breadcrumb-item" style="color:#000">Categories</label>
+              <label style="margin-left: 30%;">
+               <select name="cat" style="background: gray;color: #fff" class="form-control"> 
+            <option th:each="c:${categories}" th:text="${c.getNom()}" th:value="${c.getNom()}"/></select> 
+               </label>
+             </div>
+         <div class="row">
+          <div class="col-xs-6">
+         <a th:href="@{exports}"> <button type="button" class="btn btn-primary">Retour</button> </a>      </div>
+          <div class="col-xs-6">		            
+		<button type="submit" style="margin-left: 50%" class="btn btn-primary">Continuer</button></div>
+          </div>	
+       </form>	
+
+	</section>
+      
+</body>
+</html>
+

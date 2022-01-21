@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8" />
+<!-- Site Metas -->
+<title>Ajouter Fournisseur</title>
+
+</head>
+<body>
+	<section style="margin-top:" layout:fragment="content">
+		<div class="container" style="width: 95%">
+			<div class="panel panel-primary">
+			 <div class="panel-heading">
+				<ol class="breadcrumb" style="width: 50%">
+					<li class="breadcrumb-item" style="color: #000">Ajouter
+						Fournisseur </li>
+				</ol>
+				</div>
+				<div class="panel-body">
+					<form th:action="@{saveFour}" method="post">
+						<input class="form-control" type="hidden" name="id" />
+						<div class="row">
+						  <div class="col-md-4">
+								<div class="breadcrumb" style="color: #000;">
+									<label class="control-label"> Nom </label> <input
+										class="form-control breadcrumb-item" type="text"
+										name="nom" th:value="${fournisseur.getNom()}" /> <span
+										th:errors="${fournisseur.nom}" style="color: red"></span>
+								</div>
+						 </div>	
+						 <div class="col-md-4">
+								<div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Adresse </label> <input
+										class="form-control breadcrumb-item" type="text"
+										name="adresse" th:value="${fournisseur.getAdresse()}" /> <span
+										th:errors="${fournisseur.adresse}" style="color: red"></span>
+								</div>
+						</div>
+						  <div class="col-md-4">
+								<div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Téléphone </label> <input
+										class="form-control breadcrumb-item" type="text"
+										name="tel" th:value="${fournisseur.getTel()}" /> <span
+										th:errors="${fournisseur.tel}" style="color: red"></span>
+								</div>
+						 </div>
+							</div>
+						<div>
+							<button class="btn btn-primary">Enregistrer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
+

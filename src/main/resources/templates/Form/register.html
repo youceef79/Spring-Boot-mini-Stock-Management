@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="layoutLog">
+<head>
+<!-- Basic -->
+<meta charset="utf-8"/>
+<!-- Site Metas -->
+<title layout:fragment="head">Register page</title>
+<!-- Colors CSS -->
+</head>
+<body>
+    <section layout:fragment="content">
+       <div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fas fa-address-card"></i>Register</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" method="POST" th:action="@{signup}">
+                    
+                    <div th:if="${passConfirmFailed}" class="alert alert-danger">
+                       password confirmation doesn't fit your password
+                       </div>
+
+                        <div class="form-group">
+                            <label for="name" class="col-md-4 control-label">Name</label>
+
+                            <div class="col-md-6">
+                             <span class="input-group-addon">
+                             <i class="fad fa-id-badge"></i> 
+                            </span>
+                                <input id="name" type="text" 
+                                th:value="${name}==null?'':${name}" class="form-control main_input" name="name" placeholder="name" required>
+
+                                
+                                    <span class="help-block">
+                                        <strong></strong>
+                                    </span>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+
+                            <div class="col-md-6 input_container">
+                             <i class="fa fa-envelope input_icon input-group-addon"></i>
+                                <input id="email" type="email" 
+                                th:value="${email}==null?'':${email}" class="form-control main_input" name="email" placeholder="email" required>
+
+                                
+                                    <span class="help-block">
+                                        <strong></strong>
+                                    </span>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-md-4 control-label">Password</label>
+
+                            <div class="col-md-6 input_container">
+                            
+                             <i class="fa fa-lock input_icon input-group-addon"></i>
+                              
+                                <input id="password" type="password" 
+                                 class="form-control main_input" name="password" placeholder="password" required>
+
+                                
+                                    <span class="help-block">
+                                        <strong></strong>
+                                    </span>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+
+                            <div class="col-md-6 input_container">
+                             
+                             <i class="fa fa-repeat input_icon input-group-addon"></i> 
+                              
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                   
+                                    <span class="help-block">
+                                        <strong></strong>
+                                    </span>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="far fa-user-plus"></i> Register
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+		</section>
+
+</body>
+</html>
+

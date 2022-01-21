@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8" />
+<!-- Site Metas -->
+<title>User</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container" style="width:100vh;">
+		  <form  id="form" th:action="@{/user/updateUserWthPass}" method="post" style="width:95%;">
+        	  <input type="hidden" name="username" th:value="${user.getUsername()}"/> 
+<!-- 		      <input type="hidden" name="prod" th:value="${produit.getDesignation()}"/> -->
+<!-- 		      <input type="hidden"  name="quanDis" id="quanDis" th:value="${produit.getQuantite()}"/> -->
+<!-- 		      <input  th:if="${hide}=='true'" type="hidden" name="fournisseur" th:value="${fournisseur.getNom()}"/> -->
+		       <div class="row">
+		     
+		       <div class="col-lg-offset-2 col-lg-12">  
+		        <div th:if="${passConfirmed}" style="" class="alert alert-success">
+				   you've updated your infos successfully  !
+		      </div> 
+		       <div th:if="${passFailed}" style="" class="alert alert-danger">
+				field password incorecct, please rewrite your password !
+		      </div>
+            	  <div class="breadcrumb" style="color: #000">
+              <label class="breadcrumb-item" style="color:#000"> Modifier vos informations </label>
+             </div>
+            <div class="breadcrumb" style="color: #000">
+              <label class="breadcrumb-item" style="color:#000"> Nom </label>
+              <input
+				 type="text" class="form-control" name="name" th:value="${name}?${name}:${user.getUsername()}" required/>
+									<span id="errorQ" style="color: red"></span>
+             </div>
+             
+             <div class="breadcrumb" style="color: #000">
+              <label class="control-label"> Email </label> <input
+				 type="text" class="form-control" name="email" th:value="${email}?${email}:${user.getEmail()}" required/>
+									<span id="errorQ" style="color: red"></span>
+             </div>
+             
+             <div class="breadcrumb" style="color: #000">
+              <label class="control-label"> Password </label> <input
+				 type="password" class="form-control" name="password" required/>
+									<span id="errorQ" style="color: red"></span>
+             </div>
+             
+             <button style="margin-left: 0%" type="submit" class="btn btn-primary">Enregistrer</button>
+             </div>
+              </div>
+	        		            
+		       		 		       		
+           </form>
+           
+           <script type="text/javascript">
+           /*
+		   const form = document.getElementById('form');
+           const quanDem = document.getElementById('quanDem');
+           const taux = document.getElementById('taux');
+           const prix = document.getElementById('prix');
+           const marge = document.getElementById('marge');
+           const errorQ = document.getElementById('errorQ');
+           const errorP = document.getElementById('errorP');
+           const errorM = document.getElementById('errorM');
+           const errorT = document.getElementById('errorT');
+           
+           
+           form.addEventListener('submit', e => {
+             let messagesQ = [];
+             let messagesP = [];
+             let messagesT = [];
+             let messagesM = [];
+             if (Number(quanDem.value) < 1 ||  !/\D/.test(quanDem.value)== false ) {
+               messagesQ.push('Quantitée requise doit etre sup à 1.');
+             }
+             if (messagesQ.length > 0) {
+               e.preventDefault();
+               errorQ.innerText = messagesQ.join(', ');
+             }
+            
+           }); */
+           
+           </script>
+           				
+		</div>
+	</section>
+      
+</body>
+</html>
+

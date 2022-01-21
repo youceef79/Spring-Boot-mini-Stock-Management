@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="layoutLog">
+<head>
+<!-- Basic -->
+<meta charset="utf-8"/>
+<!-- Site Metas -->
+<title layout:fragment="head">Sign in</title>
+<!-- Colors CSS -->
+</head>
+<body>
+    <section layout:fragment="content">
+      <div class="wrap-login100">
+                    <div th:if="${param.error}" class="alert alert-danger"> 
+                             Invalid username or/and password. 
+                    </div> 
+
+                    <div th:if="${param.logout}" class="alert alert-success">
+                        You have been logged out. 
+                    </div> 
+  				<form method="POST" th:action="@{/signin}" class="login100-form validate-form">
+					<!--
+					<span class="login100-form-logo">
+						<i class="zmdi zmdi-landscape"></i>
+					</span>
+                     -->
+					<span class="login100-form-title p-b-10 p-t-10">
+						Log in
+					</span> 
+
+					<div class="wrap-input100 input_container" data-validate="Enter username">
+						<i class="iconLog fa fa-user input_icon"></i>
+						<input class="input100 main_input" type="text" id="username"  name="username" placeholder="Username">
+						<span class="focus-input100" data-placeholder="&#xf207;">  </span>
+					</div>
+
+					<div class="wrap-input100 validate-input input_container" data-validate="Enter password">
+					    <i class="iconLog fa fa-lock input_icon"></i>
+						<input class="input100 main_input" id="password" type="password" name="password" placeholder="Password">  
+						<span class="focus-input100" data-placeholder="&#xf191;">
+						</span>
+					</div>
+                   <div class="d-flex justify-end ml-5">     
+					<div class="contact100-form-checkbox">
+						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+						<label class="label-checkbox100" for="ckb1">
+							Remember me
+						</label>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Login
+						</button>
+					</div>
+					</div>
+					<div class="form-group container-login100-form-btn mt-5">
+                                <a th:href="@{/register}">
+                                 <button type="button" class="btn btn-primary">
+                                   Register
+                                </button>
+                                </a>
+
+                                <a class="btn btn-link" href="#">Forgot Your Password?</a>
+                            
+                        </div>
+				</form>
+			</div>
+    
+<!-- <div class="container"> -->
+<!--     <div class="row"> -->
+<!--         <div class="col-md-8 col-md-offset-2"> -->
+<!--             <div class="panel panel-default"> -->
+<!--                 <div class="panel-heading"><i style="margin-left: 50%;font-size: 50px" class="fas fa-address-card"></i></div> -->
+<!--                 <div class="panel-body"> -->
+<!--                     <form class="form-horizontal" role="form" method="POST" th:action="@{/signin}"> -->
+                        
+<!--                         <div th:if="${param.error}" class="alert alert-danger"> -->
+<!--                             Invalid username or/and password. -->
+<!--                         </div> -->
+
+<!--                         <div th:if="${param.logout}" class="alert alert-success"> -->
+<!--                             You have been logged out. -->
+<!--                         </div> -->
+                        
+<!--                         <div class="form-group"> -->
+<!--                             <label for="username" class="col-md-4 control-label">Username</label> -->
+
+<!--                             <div class="col-md-6"> -->
+<!--                             <div class="row"> -->
+<!--                              <i class="col-md-1 fa fa-user input-group-addon"></i>  -->
+                            
+<!--                                 <input id="username" name="username" -->
+<!--                                            type="text" class="col-md-10 form-control" placeholder="name" required> -->
+                                     
+                                
+<!--                                     <span class="help-block"> -->
+<!--                                         <strong></strong> -->
+<!--                                     </span> -->
+<!--                                     </div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+                        
+                    
+<!--                            <div class="form-group">       -->
+<!--                           <label for="password" class="col-md-4 control-label">Password</label>  -->
+                            
+<!--                             <div class="col-md-6"> -->
+<!--                             <div class="row"> -->
+                            
+<!--                               <i class="fa fa-lock col-md-1 input-group-addon"></i> -->
+<!--                                 <input id="password" name="password" -->
+<!--                                              type="password" class="col-md-10 form-control" placeholder="password" required> -->
+
+<!--                                     <span class="help-block"> -->
+<!--                                         <strong></strong> -->
+<!--                                     </span> -->
+<!--                                   </div>   -->
+                              
+<!--                             </div> -->
+<!--                        </div> -->
+
+<!--                         <div class="form-group"> -->
+<!--                             <div class="col-md-6 col-md-offset-4"> -->
+<!--                                 <div class="checkbox"> -->
+<!--                                     <label> -->
+<!--                                         <input type="checkbox" id="checkRememberMe" name="checkRememberMe" -->
+<!--                                                   > Remember Me -->
+<!--                                     </label> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+
+<!--                         <div class="form-group"> -->
+<!--                             <div class="col-md-6 col-md-offset-4"> -->
+<!--                                 <button type="submit" class="btn btn-primary"> -->
+<!--                                     <i class="fas fa-sign-in-alt"></i> Login -->
+<!--                                 </button> -->
+                                 
+<!--                                <a th:href="@{/register}"> -->
+<!--                                  <button type="button" class="btn btn-primary"> -->
+                                  
+<!--                                     <i class="fa fa-user-plus"></i> Register -->
+                                 
+<!--                                 </button> -->
+<!--                                 </a> -->
+
+<!--                                 <a class="btn btn-link" href="#">Forgot Your Password?</a> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </form> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+<!-- </div> -->
+		</section>
+
+</body>
+</html>
+

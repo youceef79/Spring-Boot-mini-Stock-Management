@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8"/>
+<!-- Site Metas -->
+<title>Edit produit</title>
+</head>
+<body>
+	     <section style="margin-top:" layout:fragment="content">
+		  	<div class="container" style="width:100%;">
+			<div class="panel panel-primary">
+			<div class="panel-heading">
+				<ol class="breadcrumb" style="width: 50%">
+					<li class="breadcrumb-item" style="color: #000">Modifier
+						Produit</li>
+				</ol>
+				</div>
+				<div class="panel-body">
+					<form th:action="@{FormEditProd}" method="post" enctype="multipart/form-data">
+						<input  type="hidden" name="id" th:value="${produit.getId()}" />
+						<div class="d-flex justify-space-between" 
+						style="display: flex;justify-content: space-between;">
+							<div style="border: solid 2px #fff">
+								<div class="breadcrumb" style="color: #000">
+									<label class="control-label"> File Upload</label>
+									<input type="file" name="imageFile" onchange="uploadImage(event)" class="form-control" style="background: gray; color: #fff" 
+									accept="image/png, image/jpeg" /> <span style="color: red"></span>
+								</div>
+							</div>
+							<div style="border: solid 2px #000">
+							<img th:src="@{${produit.getImagePath()}}" id="img" width="100" height="100" alt="image" />	
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Categorie </label> <select
+										name="cat" style="background: gray; color: #fff"
+										class="form-control">
+										<option th:each="c:${categories}" th:selected="${cat.getId()==c.getId()?'selected':null}" 
+										 th:text="${c.getNom()}" />
+									</select> <span style="color: red"></span>
+								</div>
+								<div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Designation </label> <input
+										class="form-control breadcrumb-item" type="text"
+										name="designation" th:value="${produit.getDesignation()}" /> <span
+								 th:errors="${produit.designation}" style="color: red"></span>
+								</div>
+										<div class="breadcrumb" style="color: #000">
+									<label class="control-label"> TVA</label> <label
+										class="form-control" th:text="${produit.getTaux()==0.0?'0.0':produit.getTaux()}"></label>
+									<span  th:errors="${produit.taux}" style="color: red"></span>
+								</div>
+							</div>
+							<div class="col-md-4">
+							<div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Fournisseur</label> 
+									<input  type="hidden" name="fourId" th:value="${four.getId()}" />
+									<label
+								 th:text="${four.getNom()}" style="background: gray; color: #fff"
+										class="form-control">
+									</label>
+								</div>
+								<div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Prix d'achat </label> <label
+										class="form-control" th:text="${produit.getPrix_achat_Ht()==0.0?'0.0':produit.getPrix_achat_Ht()}"></label>
+									<span th:errors="${produit.prix_achat_Ht}" style="color: red"></span>
+								</div>
+							</div>
+							<div class="col-md-4">
+							  <div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Quantite </label> <label
+										class="form-control" th:text="${produit.getQuantite()==0?'0':produit.getQuantite()}"></label>
+									<span th:errors="${produit.quantite}" style="color: red"></span>
+								</div>
+								<div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Marge </label> <label
+										class="form-control" th:text="${produit.getMarge()==0.0?'0.0':produit.getMarge()}"></label>
+									<span th:errors="${produit.marge}" style="color: red"></span>
+								</div>
+							</div>
+						</div>
+						<input type="submit" style="display : none;" id="enreg"/>
+					</form>
+					<div>
+							<button onclick="dialogConfirm()" class="btn btn-primary">Enregistrer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			 var modal = document.getElementById('my-modal');
+			 var okay = document.getElementById('ok');
+			 var cancel = document.getElementById('cancel');
+			 var submit = document.getElementById('enreg');
+			 var image = document.getElementById('img');
+			 
+			 function dialogConfirm(){
+                modal.style.display = 'block';
+			 }
+			 function okButton(){
+				 modal.style.display = 'none';
+				 submit.click();
+	                }
+			 function cancelButton(){
+				 modal.style.display = 'none';
+				 }
+			 
+			 function uploadImage(e){
+				 const file = e.target.files[0];
+				 if(file){
+				 image.src = URL.createObjectURL(file);
+				 }
+			 }
+			</script>  
+		</section>
+
+</body>
+</html>
+

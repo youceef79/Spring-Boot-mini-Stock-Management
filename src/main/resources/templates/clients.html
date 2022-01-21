@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8"/>
+<!-- Site Metas -->
+<title layout:fragment="head"> Clients </title>
+<!-- Colors CSS -->
+</head>
+<body>
+	   <section layout:fragment="content">
+            <div class="box0_2 breadcrumb" style="width:100%" >
+              <label class="breadcrumb-item" style="color:#000"> Clients </label>
+              <label style="margin-left: 60%;"><a th:href="@{FormAjoutClient}"> <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" ></i> Ajouter Client</button></a></label>
+            </div>
+               <div th:if="${listClients}" class="tabContainer">
+				<table class="table" style="background:#E9ECEF;">
+					<thead class="text-center">
+						<tr>
+							<td>ID</td>
+							<td>Nom</td>
+							<td>Adresse</td>
+							<td>Tél</td>
+						</tr>
+					</thead>
+					<tbody class="text-center">
+						<tr th:each="c:${listClients}">
+							<td th:text="${c.getId()}"></td>
+							<td th:text="${c.getNom()}"></td>
+							<td th:text="${c.getAdresse()}"></td>
+							<td th:text="${c.getTel()}"></td>
+							<td><a th:href="@{deleteClient(id=${c.getId()})}">
+									<button class="button btn-danger"><i class="fa fa-times-circle"></i>  DELETE</button>
+							</a>
+							<a th:href="@{editFormClient(id=${c.getId()})}" class="ml-3">
+									<button class="button btn-success"><i class="fa fa-edit"></i> EDIT </button>
+							</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+
+</body>
+</html>
+

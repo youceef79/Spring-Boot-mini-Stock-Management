@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8"/>
+<!-- Site Metas -->
+<title layout:fragment="head"> Entrées </title>
+<!-- Colors CSS -->
+</head>
+<body>
+    <section layout:fragment="content">
+       <form th:action="${imports}" method="post">
+       <input type="hidden" name="catCh" th:value="${catCh.getNom()}" />
+         <div th:if="${statut}=='success'" class="alert alert-success">
+				Votre opération a été effectué avec succés !
+		  </div>
+		     <div class="breadcrumb row" style="width: 70%;margin-left: 2px">
+		     <div class="col-sm-4">
+              <label class="breadcrumb-item" style="color:#000">Categories</label>
+              </div>
+              <div class="col-sm-4">
+             <select class="form-control" name="cat" style="background: gray;color: #fff;" > 
+            <option th:each="c:${categories}" th:selected="${catCh.getId()==c.getId()?'selected':null}" th:text="${c.getNom()}"/> </select>
+               </div>
+               <div class="col-sm-4">
+               <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> chercher</button>
+              </div>
+            </div>
+            <div class="breadcrumb row" style="width: 70%;margin-left: 2px">
+              <div class="col-xs-6">
+              <label class="breadcrumb-item" style="margin-left: 0;color:#000;">Listes Entrées</label>
+              </div>
+              <div class="col-xs-6">
+             <label><a th:href="@{FormEntreeCateg}"> <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" ></i>Ajouter une entrée</button></a></label>
+              </div>
+            </div>
+       </form>
+            <div th:if="${listentrees}" class="table" style="background:#E9ECEF;margin-right:20px">
+            <div th:if="${listEmpty==false}">
+				<table>
+					<thead>
+						<tr>
+							<td style="color:gold">Thumbnail</td>
+							<td style="color:gold">Produit</td>
+							<td style="color:gold">Fournisseur</td>
+							<td style="color:gold">Date</td>
+							<td style="color:gold">Quantitée importée</td>
+							<td style="color:gold">Prix</td>
+							<td style="color:gold">Actions</td>
+							
+						</tr>
+					</thead>
+					<tbody class="text-center">
+					 <tr th:each="e:${listentrees}">
+							<td><img th:src="@{${e.getProduit().getImagePath()}}" width="50" height="50" alt="image" /></td>
+							<td th:text="${e.getProduit().getDesignation()}"></td>
+							<td th:text="${e.getFournisseur().getNom()}"></td>
+							<td th:text="${e.getDate().toGMTString()}"></td>
+							<td th:text="${e.getQuantite()}"></td>
+							<td th:text="${e.getPrix()}+' MAD'"></td>
+							 
+							<td style="display:flex;align-items: space-between;"><a th:href="@{deleteEntree(id=${e.getId()})}">
+									<button class="button btn-danger"><i class="fa fa-times-circle"></i> DELETE</button>
+							</a>
+							<a th:href="@{EntreeEdit(id=${e.getId()})}" class="ml-3">
+									<button class="button btn-success"><i class="fa fa-edit"></i> EDIT</button>
+							</a></td>
+							
+						</tr>
+					</tbody>
+					
+				</table>
+			</div>
+			</div>
+			<div style="display:flex;justify-content:space-around;">
+			<a class="hi-prev" th:if="${page}>1"  style="text-decoration:none;" th:href="@{imports(slide='prev',page=${page}, cat=${catCh.getNom()} ,catCh=${catCh.getNom()})}"></a>   
+            <a class="hi-next" th:if="${page}<${pageMax}" style="text-decoration : none;" th:href="@{imports(slide='next',page=${page} ,cat=${catCh.getNom()} ,catCh=${catCh.getNom()})}"></a>    
+            </div>
+		</section>
+</body>
+</html>
+

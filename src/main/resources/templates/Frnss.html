@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8"/>
+<!-- Site Metas -->
+<title layout:fragment="head"> Fournisseurs</title>
+<!-- Colors CSS -->
+</head>
+<body>
+	   <section layout:fragment="content">
+            <div class="breadcrumb" style="width:100%" >
+              <label class="breadcrumb-item" style="color:#000"> Fournisseurs </label>
+              <label style="margin-left: 60%;"><a th:href="@{FormAjoutFour}"> <button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" ></i> Ajouter Fournisseur</button></a></label>
+            </div>
+              <div th:if="${listFrnss}" class="tabContainer">
+				<table class="table" style="background:#E9ECEF">
+					<thead class="text-center">
+						<tr>
+							<td>ID</td>
+							<td>Nom</td>
+							<td>Adresse</td>
+							<td>Tél</td>
+							<td>Actions</td>
+						</tr>
+					</thead>
+					<tbody class="text-center">
+						<tr th:each="f:${listFrnss}">
+							<td th:text="${f.getId()}"></td>
+							<td th:text="${f.getNom()}"></td>
+							<td th:text="${f.getAdresse()}"></td>
+							<td th:text="${f.getTel()}"></td>
+							<td><a th:href="@{deleteFour(id=${f.getId()})}">
+									<button class="button btn-danger"><i class="fa fa-times-circle"></i> DELETE</button>
+							</a>
+							<a th:href="@{editFormFour(id=${f.getId()})}" class="ml-3">
+									<button class="button btn-success"><i class="fa fa-edit"></i> EDIT</button>
+							</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+
+</body>
+</html>
+

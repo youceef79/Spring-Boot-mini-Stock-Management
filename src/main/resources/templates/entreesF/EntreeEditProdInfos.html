@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<!-- Basic -->
+<meta charset="utf-8" />
+<!-- Site Metas -->
+<title>Ajouter sortie</title>
+
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container" style="width:95%">
+		  <form  id="form" th:action="@{EntreeEdit}" method="post" style="width:95%">
+		  <div th:if="${statut}=='success'" style="width:50%;" class="alert alert-success">
+				Votre opération a été effectué avec succés !
+		  </div>
+			  <input type="hidden" name="cat" th:value="${cat.getNom()}"/>
+		      <input type="hidden" name="prod" th:value="${produit.getDesignation()}"/>
+		      <input type="hidden"  name="quanDis" id="quanDis" th:value="${produit.getQuantite()}"/>
+		      <input type="hidden"  name="entreeId" th:value="${entree.getId()}"/>
+		       <div class="row">
+				<div class="col-lg-6">
+            <div class="breadcrumb" style="color: #000">
+              <label class="breadcrumb-item" style="color:#000">Catégorie</label>
+              <label style="margin-left: 30%;">
+                <b th:text="${cat.getNom()}"></b>  
+               </label>
+             </div>
+             <div class="breadcrumb" style="color: #000">
+              <label class="breadcrumb-item" style="color:#000">Produit</label>
+              <label style="margin-left: 30%;">
+                <b  th:text="${produit.getDesignation()}"></b>  
+               </label>
+             </div>
+              <div  class="breadcrumb" style="color:#000">
+              <label class="breadcrumb-item" style="color:#000">Fournisseurs</label>
+              <label style="margin-left: 30%;">
+                <select name="fournisseur" style="background: gray;color: #fff" class="form-control"> 
+               <option th:each="f:${listFrnss}" th:text="${f.getNom()}" th:selected="${fournisseur.getId()==f.getId()?'selected':null}" >
+               </select> 
+               </label>
+             </div>
+                 
+                       <div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Quantitée Demandée </label> <input
+						class="form-control" type="text" name="quanDemandee" id="quanDem" th:value="${entree.getQuantite()}" 
+										required/>
+									<span id="errorQ" style="color: red"></span>
+						</div>
+             
+                         <div class="breadcrumb" style="color: #000">
+									<label class="control-label"> Prix d'achat </label> <input
+					id="prix"  class="form-control" type="text" name="prix_achat_" th:value="${entree.getPrix()}" 
+									required/>
+									<span id="errorP" style="color: red"></span>
+						</div>
+             </div>
+             
+            
+             <div class="col-lg-offset-2 col-lg-4">
+             
+                       
+						       <div  class="breadcrumb" style="color: #000">
+									<label class="control-label"> TVA</label> <input
+			  id="taux" class="form-control" type="text" name="taux"  th:value="${produit.getTaux()}" 
+										required/>
+									<span id="errorT" style="color: red"></span>
+								</div>
+								<div   class="breadcrumb" style="color: #000">
+									<label class="control-label"> Marge </label> <input
+										id="marge" class="form-control" type="text" name="marge" 
+									th:value="${produit.getMarge()}"	 required/>
+									<span id="errorM" style="color: red"></span>
+								</div>
+                         <div class="breadcrumb" style="color: #000">
+                        <label class="breadcrumb-item" style="color:#000">Date de Demande</label>
+                        <input class="form-control" type="date"
+										id="date" name="date" 
+								   th:value="${entree.getDate().toGMTString()}"  required/>  
+                            </div>
+                         </div>
+                         </div>
+	        		            
+		     <button type="submit" class="btn btn-primary">Enregistrer</button>
+		       		 		       		
+           </form>
+           
+           <script type="text/javascript">
+           
+		   const form = document.getElementById('form');
+           const quanDem = document.getElementById('quanDem');
+           /*
+           const taux = document.getElementById('taux');
+           const prix = document.getElementById('prix');
+           const marge = document.getElementById('marge');
+           const errorQ = document.getElementById('errorQ');
+           const errorP = document.getElementById('errorP');
+           const errorM = document.getElementById('errorM');
+           const errorT = document.getElementById('errorT');
+           */
+           
+           form.addEventListener('submit', e => {
+             let messagesQ = [];
+             let messagesP = [];
+             let messagesT = [];
+             let messagesM = [];
+             if (Number(quanDem.value) < 1 ||  !/\D/.test(quanDem.value)== false ) {
+               messagesQ.push('Quantitée requise doit etre sup à 1.');
+             }
+             if (messagesQ.length > 0) {
+               e.preventDefault();
+               errorQ.innerText = messagesQ.join(', ');
+             }
+            
+           });
+           
+           </script>
+           				
+		</div>
+
+
+	</section>
+      
+</body>
+</html>
+
